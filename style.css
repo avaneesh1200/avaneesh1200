@@ -1,0 +1,297 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f4f4f5;
+    color: #1a1a1a;
+    line-height: 1.7;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #000;
+}
+
+.social-sidebar {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 100;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: #ffffff;
+    color: #111;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    transition: all 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: #111;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+    max-width: 620px;
+    width: 100%;
+    background: #ffffff;
+    padding: 45px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+}
+
+.avatar-link {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    text-decoration: none;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 2px #000;
+    transition: all 0.25s ease;
+}
+
+.avatar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 2px #000, 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.intro h1 {
+    font-size: 2.4rem;
+    letter-spacing: -0.8px;
+    margin-bottom: 8px;
+}
+
+.tagline {
+    font-weight: 500;
+    color: #111;
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+}
+
+.description {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 35px 0;
+}
+
+section {
+    margin-bottom: 35px;
+}
+
+section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+section p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.github-btn:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(1);
+}
+
+.footnote {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.tag-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: #f4f4f5;
+    color: #333;
+    padding: 9px 18px;
+    border-radius: 30px;
+    border: 1px solid #e4e4e7;
+}
+
+.tech-tag svg {
+    width: 16px;
+    height: 16px;
+    color: #555;
+}
+
+.cplusplus-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.dream-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: #111;
+    padding: 26px;
+    border-radius: 14px;
+    color: #fff;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dream-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3);
+}
+
+.dream-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 12px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.dream-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.dream-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.dream-card h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+}
+
+.last-updated {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #999;
+    letter-spacing: 0.3px;
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .card {
+        padding: 30px 20px;
+    }
+
+    .social-sidebar {
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+    }
+    
+    .intro h1 {
+        font-size: 1.9rem;
+    }
+    
+    .description {
+        max-width: 100%;
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .dream-card {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .dream-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .dream-icon {
+        padding: 12px;
+    }
+}
