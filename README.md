@@ -7,6 +7,8 @@
 > The Octocat illustration is used as profile pitcure and favicon for <b>/avaneesh1200</b> github profile and github portfolio
 ### MY PORTFOLIO
 https://avaneesh1200.github.io/
+### MY Blogs
+https://avaneesh1200.github.io/blogs
 ### Identify the trademark owner for each file.
 ```bash
 root/
