@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A beginner's honest log — what I broke, what clicked, and why documentation matters more than tutorials.">
+    <meta name="author" content="Avaneesh Shahi">
+    <meta name="theme-color" content="#111111">
+
+    <meta property="og:title" content="My First 2 Weeks with C++: Moving Beyond Hello, World!">
+    <meta property="og:description" content="A beginner's honest log — what I broke, what clicked, and why documentation matters more than tutorials.">
+    <meta property="og:type" content="article">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../profile.png" type="image/png">
+    <title>My First 2 Weeks with C++ · Avaneesh Shahi</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f4f4f5;
+            color: #1a1a1a;
+            line-height: 1.7;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #000;
+        }
+
+        a {
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #ccc;
+            transition: border-color 0.2s ease;
+        }
+
+        a:hover {
+            border-bottom-color: #111;
+        }
+
+        /* ---------- Social sidebar ---------- */
+        .social-sidebar {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background-color: #ffffff;
+            color: #111;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: #111;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #111;
+        }
+
+        /* ---------- Card ---------- */
+        .card {
+            max-width: 720px;
+            width: 100%;
+            background: #ffffff;
+            padding: 45px 45px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+        }
+
+        /* ---------- Back link + MD badge row ---------- */
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #555;
+            text-decoration: none;
+            border-bottom: 1px dashed transparent;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #111;
+            border-bottom-color: #111;
+        }
+
+        /* Markdown source link — small, tasteful */
+        .md-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px 5px 6px;
+            font-size: 0.8rem;
+            color: #555;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .md-link:hover {
+            background: #fff;
+            border-color: #ddd;
+            color: #111;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px -4px rgba(0,0,0,0.1);
+        }
+
+        .md-link svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        /* ---------- Blog header ---------- */
+        .blog-header {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .blog-header h1 {
+            font-size: 1.85rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .blog-header blockquote {
+            text-align: left;
+            border-left: 3px solid #ddd;
+            padding: 4px 0 4px 18px;
+            margin: 18px 0;
+            color: #555;
+            font-size: 0.98rem;
+        }
+
+        .blog-header blockquote strong { color: #111; }
+        .blog-header blockquote em { color: #777; font-style: italic; }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .badges img {
+            display: block;
+            height: 28px;
+        }
+
+        /* ---------- Blog content ---------- */
+        .blog-content p {
+            margin-bottom: 16px;
+            color: #444;
+        }
+
+        .blog-content h2 {
+            font-size: 1.3rem;
+            margin: 34px 0 14px 0;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+
+        .blog-content hr {
+            border: 0;
+            height: 1px;
+            background: #eee;
+            margin: 32px 0;
+        }
+
+        .blog-content ul {
+            margin: 12px 0 18px 22px;
+            color: #444;
+        }
+
+        .blog-content li {
+            margin-bottom: 6px;
+        }
+
+        .blog-content strong { color: #111; }
+
+        .blog-content blockquote {
+            border-left: 3px solid #ddd;
+            padding: 10px 18px;
+            margin: 18px 0;
+            background: #fafafa;
+            color: #555;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.98rem;
+        }
+
+        .blog-content blockquote strong { color: #111; }
+
+        /* ---------- Tables ---------- */
+        .blog-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.92rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .blog-content table thead { background: #fafafa; }
+
+        .blog-content table th,
+        .blog-content table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        .blog-content table th {
+            font-weight: 600;
+            color: #111;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .blog-content table tr:last-child td { border-bottom: none; }
+
+        /* ---------- Code blocks (with syntax highlighting) ---------- */
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 18px 22px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85rem;
+            line-height: 1.65;
+            margin: 20px 0;
+            border: 1px solid #2d2d2d;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            tab-size: 4;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            white-space: pre;
+        }
+
+        pre::-webkit-scrollbar { height: 8px; }
+        pre::-webkit-scrollbar-track { background: #2a2a2a; border-radius: 4px; }
+        pre::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+        pre::-webkit-scrollbar-thumb:hover { background: #777; }
+
+        /* inline code */
+        code {
+            background: #f0f0f0;
+            color: #c7254e;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.86em;
+            border: 1px solid #e0e0e0;
+            white-space: nowrap;
+        }
+
+        /* ---------- Syntax highlighting tokens (VS Code Dark+ palette) ---------- */
+        .tok-comment  { color: #6a9955; font-style: italic; }  /* // ... */
+        .tok-preproc  { color: #c586c0; }                       /* #include */
+        .tok-header   { color: #ce9178; }                       /* <iostream> */
+        .tok-keyword  { color: #569cd6; }                       /* int, return, for, if, else */
+        .tok-type     { color: #4ec9b0; }                       /* std, long long, int (as type) */
+        .tok-function { color: #dcdcaa; }                       /* printf, main, cout */
+        .tok-string   { color: #ce9178; }                       /* "Hello..." */
+        .tok-number   { color: #b5cea8; }                       /* 0, 1, 2 */
+        .tok-operator { color: #d4d4d4; }                       /* <<, +, =, ; */
+        .tok-var      { color: #9cdcfe; }                       /* times, x, y, result, i */
+        .tok-escape   { color: #d7ba7d; }                       /* \n */
+
+        /* ---------- Details (collapsible) ---------- */
+        details {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 4px 18px;
+            margin: 18px 0;
+        }
+
+        details[open] { padding-bottom: 14px; }
+
+        summary {
+            cursor: pointer;
+            padding: 12px 0;
+            font-weight: 500;
+            color: #111;
+            list-style: none;
+            user-select: none;
+            outline: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::before {
+            content: '▸ ';
+            color: #999;
+            display: inline-block;
+            transition: transform 0.2s ease;
+            margin-right: 4px;
+        }
+
+        details[open] summary::before { content: '▾ '; }
+
+        details > *:not(summary) {
+            color: #444;
+            font-size: 0.94rem;
+        }
+
+        details ul { margin-left: 20px; margin-top: 6px; margin-bottom: 6px; }
+        details li { margin-bottom: 5px; }
+        details br { display: none; }
+        details p  { margin-bottom: 12px; }
+
+        /* ---------- Signature ---------- */
+        .signature {
+            margin-top: 40px;
+            padding-top: 22px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        .signature em { font-style: italic; }
+
+        .signature .date {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 600px) {
+            body { padding: 20px 12px; }
+
+            .card {
+                padding: 30px 22px;
+                border-radius: 14px;
+            }
+
+            .social-sidebar {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+            }
+
+            .blog-header h1 { font-size: 1.45rem; }
+            .blog-content h2 { font-size: 1.15rem; }
+
+            pre {
+                font-size: 0.74rem;
+                padding: 14px 16px;
+            }
+
+            code {
+                font-size: 0.8em;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .blog-content table { font-size: 0.82rem; }
+            .blog-content table th,
+            .blog-content table td { padding: 8px 10px; }
+
+            .badges img { height: 24px; }
+        }
+
+        /* ---------- Print ---------- */
+        @media print {
+            body { background: #fff; padding: 0; }
+            .social-sidebar, .back-link, .md-link { display: none; }
+            .card { box-shadow: none; padding: 0; max-width: 100%; }
+            pre { background: #f8f8f8; color: #111; border: 1px solid #ccc; box-shadow: none; }
+            pre code, .tok-comment, .tok-preproc, .tok-header, .tok-keyword,
+            .tok-type, .tok-function, .tok-string, .tok-number,
+            .tok-operator, .tok-var, .tok-escape { color: #111 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="social-sidebar">
+        <a href="https://github.com/avaneesh1200" target="_blank" rel="noopener" class="social-link" title="GitHub Profile">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+        </a>
+        <a href="mailto:avaneesh12012@proton.me" class="social-link" title="Email Me">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+        </a>
+    </aside>
+
+    <main class="card">
+
+        <div class="top-row">
+            <a href="../index.html" class="back-link">← All posts</a>
+
+            <!-- Markdown source link with Material Icon Theme markdown icon (inlined) -->
+            <a href="index.md" class="md-link" title="View Markdown source">
+                <!--
+                  Inline version of the Material Icon Theme "markdown.svg"
+                  (blue rounded square with white M↓)
+                  If you'd rather load the official file from the CDN, replace the
+                  <svg> below with:
+                    <img src="https://raw.githubusercontent.com/material-extensions/vscode-material-icon-theme/d18666cb8282720543b9452cbd41f6e6d31b4ca4/icons/markdown.svg" alt="Markdown" width="16" height="16">
+                -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="1.5" y="3.5" width="21" height="17" rx="2.2" fill="#42a5f5"/>
+                    <path fill="#ffffff"
+                          d="M5 8h2.4l2.1 3.1L11.6 8H14v8h-2.1v-4.7l-2.4 3.4h-.1l-2.3-3.4V16H5V8zm11.4 0H19v4.4h1.9L18.2 16 14.8 12.4H17V8z"/>
+                </svg>
+                <span>Markdown</span>
+            </a>
+        </div>
+
+        <header class="blog-header">
+            <h1>🧠 My First 2 Weeks with C++: Moving Beyond Hello, World!</h1>
+            <blockquote>
+                <strong>A beginner's honest log</strong> — what I broke, what clicked, and why documentation matters more than tutorials.<br><br>
+                <em>Written by Avaneesh Shahi · 9 October 2026 · 4 min read</em>
+            </blockquote>
+            <div class="badges">
+                <img src="https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++">
+                <img src="https://img.shields.io/badge/level-beginner-brightgreen?style=for-the-badge" alt="Beginner">
+                <img src="https://img.shields.io/badge/status-learning-blue?style=for-the-badge" alt="Status">
+            </div>
+        </header>
+
+        <div class="blog-content">
+
+            <hr>
+
+            <p>
+                Before moving further into this blog, I would like to introduce you to <strong>Hello, World!</strong> in C++.
+            </p>
+
+            <h2>📘 1. C-Style C++</h2>
+
+<pre><code><span class="tok-preproc">#include</span> <span class="tok-header">&lt;cstdio&gt;</span>
+
+<span class="tok-keyword">int</span> <span class="tok-function">main</span>() {
+    <span class="tok-function">printf</span>(<span class="tok-string">"Hello, World!<span class="tok-escape">\n</span>"</span>);
+    <span class="tok-keyword">return</span> <span class="tok-number">0</span>;
+}</code></pre>
+
+            <details>
+                <summary><b>🔍 Line-by-line breakdown</b> (click to expand)</summary>
+                <ul>
+                    <li><code>#include &lt;cstdio&gt;</code> — A preprocessor directive that includes the standard C input/output library. It provides access to functions like <code>printf</code>. In C, this is typically written as <code>&lt;stdio.h&gt;</code>.</li>
+                    <li><code>int main()</code> — The entry point for every C/C++ program. Execution starts here. The <code>int</code> indicates that the function returns an integer status code to the operating system upon completion.</li>
+                    <li><code>printf("Hello, World!\n");</code>
+                        <ul>
+                            <li><code>printf</code> (formatted print) sends output directly to the standard output buffer.</li>
+                            <li><code>"Hello, World!\n"</code> is a string literal.</li>
+                            <li><code>\n</code> is an escape sequence for a newline character, moving the cursor to the next line.</li>
+                        </ul>
+                    </li>
+                    <li><code>return 0;</code> — Signals to the operating system that the program executed successfully without any errors.</li>
+                </ul>
+            </details>
+
+            <h2>📗 2. Standard C++ Style (Modern Idiomatic C++)</h2>
+
+<pre><code><span class="tok-preproc">#include</span> <span class="tok-header">&lt;iostream&gt;</span>
+
+<span class="tok-keyword">int</span> <span class="tok-function">main</span>() {
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-string">"Hello, World!"</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+    <span class="tok-keyword">return</span> <span class="tok-number">0</span>;
+}</code></pre>
+
+            <details>
+                <summary><b>🔍 Line-by-line breakdown</b> (click to expand)</summary>
+                <ul>
+                    <li><code>#include &lt;iostream&gt;</code> — Includes the C++ input/output stream header. This header defines objects like <code>std::cout</code>, <code>std::cin</code>, and <code>std::endl</code>.</li>
+                    <li><code>int main()</code> — The primary execution entry point for any C/C++ program.</li>
+                    <li><code>std::cout</code> — Stands for "character output". It is an output stream object connected to the standard console output.</li>
+                    <li><code>::</code> (Scope Resolution Operator) — Specifies that <code>cout</code> belongs to the <code>std</code> (standard) namespace, preventing naming conflicts with user-defined code.</li>
+                    <li><code>&lt;&lt;</code> (Stream Insertion Operator) — Sends the string <code>"Hello, World!"</code> into the <code>std::cout</code> stream buffer to display it on the screen.</li>
+                    <li><code>std::endl;</code> — A stream manipulator that inserts a newline character (<code>\n</code>) and flushes the output buffer immediately to guarantee output is visible right away.</li>
+                    <li><code>return 0;</code> — Indicates successful termination of the program.</li>
+                </ul>
+            </details>
+
+            <hr>
+
+            <h2>🧩 Quick comparison</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>C-Style (<code>cstdio</code>)</th>
+                        <th>Modern C++ (<code>iostream</code>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Header</td><td><code>&lt;cstdio&gt;</code> / <code>&lt;stdio.h&gt;</code></td><td><code>&lt;iostream&gt;</code></td></tr>
+                    <tr><td>Output</td><td><code>printf()</code></td><td><code>std::cout</code></td></tr>
+                    <tr><td>Newline</td><td><code>\n</code></td><td><code>std::endl</code> or <code>\n</code></td></tr>
+                    <tr><td>Type safety</td><td>❌ Not type-safe</td><td>✅ Type-safe</td></tr>
+                    <tr><td>Speed</td><td>⚡ Faster</td><td>Slightly slower</td></tr>
+                    <tr><td>Verbosity</td><td>Less</td><td>More</td></tr>
+                </tbody>
+            </table>
+
+            <blockquote>
+                💡 <strong>My take:</strong> Start with modern C++. You can always learn the C-style later when you touch legacy code.
+            </blockquote>
+
+            <hr>
+
+            <h2>🛠️ How the first two weeks actually went</h2>
+
+            <p>Now, let's talk about how my first two weeks with C++ actually went.</p>
+
+            <p>
+                <strong>First of all</strong>, C++ can be an extremely rewarding language, but it can also be a pain to debug — and I experienced that myself in my first small project 👉 <a href="https://github.com/avaneesh1200/myprojects-cpp" target="_blank" rel="noopener">github.com/avaneesh1200/myprojects-cpp</a>.
+            </p>
+
+            <p>
+                <strong>The best way to learn C++</strong>, I think, is not by watching tutorials but by writing small tasks — even simple ones, like printing <code>"Hi"</code> on the screen five times using <code>cout</code>.
+            </p>
+
+            <p>
+                <strong>One more thing we should think about:</strong> the ability to learn any language, especially mid-level languages created in the 70s or 80s.
+            </p>
+
+            <blockquote>
+                📖 Being able to read documentation helps us discover more of the concepts that exist in the language — because only a small part of C++ shows up in online tutorials, while almost all of it lives in the documentation. For older versions <em>and</em> newer ones too.
+            </blockquote>
+
+            <p>
+                So a beginner like me should read the documentation <em>(which I actually did)</em> and shouldn't run away from it just because:
+            </p>
+
+            <ul>
+                <li>🙈 the UI feels ugly,</li>
+                <li>😵 the English feels confusing,</li>
+                <li>🤔 or the words feel strange.</li>
+            </ul>
+
+            <p>
+                And we also shouldn't paste documentation — big or small — straight into an AI tool and ask it to summarise. Because then we're not really building one of the more important skills in software development:
+            </p>
+
+            <blockquote>
+                ✍️ <strong>The ability to read and write documentation.</strong>
+            </blockquote>
+
+            <p>I might be wrong somewhere, but this is what I've felt so far.</p>
+
+            <hr>
+
+            <h2>🧮 My hand-typed Fibonacci program</h2>
+
+            <p>
+                In these 14 days I learned many new concepts, and I also completed my hand-typed Fibonacci program.
+            </p>
+
+<pre><code><span class="tok-preproc">#include</span> <span class="tok-header">&lt;iostream&gt;</span>
+
+<span class="tok-keyword">int</span> <span class="tok-function">main</span>() {
+    <span class="tok-keyword">int</span> <span class="tok-var">times</span>;
+    <span class="tok-keyword">long long</span> <span class="tok-var">x</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>;
+    <span class="tok-keyword">long long</span> <span class="tok-var">y</span> <span class="tok-operator">=</span> <span class="tok-number">1</span>;
+    <span class="tok-keyword">long long</span> <span class="tok-var">result</span>;
+
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-string">"Enter the number: "</span>;
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cin</span> <span class="tok-operator">&gt;&gt;</span> <span class="tok-var">times</span>;
+    <span class="tok-var">times</span> <span class="tok-operator">=</span> <span class="tok-var">times</span> <span class="tok-operator">-</span> <span class="tok-number">2</span>;
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-var">x</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-var">y</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">int</span> <span class="tok-var">i</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>; <span class="tok-var">i</span> <span class="tok-operator">&lt;</span> <span class="tok-var">times</span>; <span class="tok-operator">++</span><span class="tok-var">i</span>) {
+        <span class="tok-keyword">if</span> (<span class="tok-var">x</span> <span class="tok-operator">&gt;</span> <span class="tok-var">y</span>) {
+            <span class="tok-var">result</span> <span class="tok-operator">=</span> <span class="tok-var">x</span> <span class="tok-operator">+</span> <span class="tok-var">y</span>;
+            <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-var">result</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+            <span class="tok-var">y</span> <span class="tok-operator">=</span> <span class="tok-var">result</span>;
+        }
+        <span class="tok-keyword">else if</span> (<span class="tok-var">x</span> <span class="tok-operator">==</span> <span class="tok-var">y</span> <span class="tok-operator">||</span> <span class="tok-var">x</span> <span class="tok-operator">&lt;</span> <span class="tok-var">y</span>) {
+            <span class="tok-var">result</span> <span class="tok-operator">=</span> <span class="tok-var">x</span> <span class="tok-operator">+</span> <span class="tok-var">y</span>;
+            <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-var">result</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+            <span class="tok-var">x</span> <span class="tok-operator">=</span> <span class="tok-var">result</span>;
+        }
+    }
+}</code></pre>
+
+            <details>
+                <summary><b>🤔 A note on this code</b> (click to expand)</summary>
+                <p>
+                    Might be bad logic, or it may not be performance efficient, but I liked it a lot because it was hand-typed by me and I didn't have to search how the code looked in other programs.
+                </p>
+                <p>
+                    The <code>x</code> and <code>y</code> swap pattern I used isn't the cleanest way to do Fibonacci — most people would just do:
+                </p>
+<pre><code><span class="tok-keyword">long long</span> <span class="tok-var">a</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>, <span class="tok-var">b</span> <span class="tok-operator">=</span> <span class="tok-number">1</span>;
+<span class="tok-keyword">for</span> (<span class="tok-keyword">int</span> <span class="tok-var">i</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>; <span class="tok-var">i</span> <span class="tok-operator">&lt;</span> <span class="tok-var">times</span>; <span class="tok-operator">++</span><span class="tok-var">i</span>) {
+    <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">cout</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-var">a</span> <span class="tok-operator">&lt;&lt;</span> <span class="tok-type">std</span><span class="tok-operator">::</span><span class="tok-function">endl</span>;
+    <span class="tok-keyword">long long</span> <span class="tok-var">next</span> <span class="tok-operator">=</span> <span class="tok-var">a</span> <span class="tok-operator">+</span> <span class="tok-var">b</span>;
+    <span class="tok-var">a</span> <span class="tok-operator">=</span> <span class="tok-var">b</span>;
+    <span class="tok-var">b</span> <span class="tok-operator">=</span> <span class="tok-var">next</span>;
+}</code></pre>
+                <p>
+                    But that's fine. The point wasn't to write the <em>best</em> Fibonacci — it was to write <strong>my own</strong> Fibonacci.
+                </p>
+            </details>
+
+            <p>
+                I learned about various low-level topics also, and what the steps are to optimise a program.
+            </p>
+
+            <hr>
+
+            <h2>🎯 Takeaways</h2>
+
+            <table>
+                <thead>
+                    <tr><th>Lesson</th><th>Why it matters</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Write small programs</td><td>Reading code ≠ writing code</td></tr>
+                    <tr><td>Read the docs</td><td>Tutorials cover ~10% of C++</td></tr>
+                    <tr><td>Don't outsource thinking to AI</td><td>Reading docs <em>is</em> the skill</td></tr>
+                    <tr><td>Finish something, even if it's ugly</td><td>Momentum &gt; perfection</td></tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h2>🙏 Final words</h2>
+
+            <p>This was my experience.</p>
+
+            <p>
+                If you're also starting out with C++ — you're not alone. It gets easier. Or at least, you get used to it. 😄
+            </p>
+
+            <hr>
+
+            <div class="signature">
+                <em>~ Avaneesh</em>
+                <span class="date">Last updated: 9 October 2026 IST</span>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
