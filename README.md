@@ -12,6 +12,7 @@ https://avaneesh1200.github.io/
 root/
 index.html - MIT License, 2026 (c) Avaneesh Shahi
 style.css -  MIT License, 2026 (c) Avaneesh Shahi
+404.html -  MIT License, 2026 (c) Avaneesh Shahi
 c++.webp - Standard C++ Foundation
 github.svg - GitHub, Inc
 profile.png - custom illustration made from https://myoctocat.com/, a property of GitHub, Inc
